@@ -1,23 +1,47 @@
 package com.study;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod; //import requestMethod  220917
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam; //import param 220917
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView; //import ModelandView header 220917
 
 @Controller
 public class HeloController {
 	
-	@RequestMapping("/{num}") //annotation with variables to create paths
-	public String index(@PathVariable int num, Model model) { //
-	int res = 0;
-	for(int i = 1; i <= num; i++) {
-		res += i;
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public ModelAndView index(ModelAndView mav) {
+		mav.setViewName("index");
+		mav.addObject("msg", "이름을 적어서 전송해주세요.");
+		return mav;
 	}
-	model.addAttribute("msg", "total: " + res);
-	return "index";
-	}	
+	
+	@RequestMapping(value="/", method=RequestMethod.POST)
+	public ModelAndView send(@RequestParam("text1")String str, ModelAndView mav) {
+		mav.addObject("msg", "안녕하세요! " + str + "님!");
+		mav.addObject("value", str);
+		mav.setViewName("index");
+		return mav;
+	}
+	
+	
+//	@RequestMapping("/{num}") //annotation with variables to create paths
+//	public ModelAndView index(@PathVariable int num, ModelAndView mav) { //
+//	int res = 0;
+//	for(int i = 1; i <= num; i++) {
+//		res += i;
+//	}
+//	//model
+//	//model.addAttribute("msg", "total: " + res);
+//	
+//	//model and view
+//	mav.addObject("msg", "total: " + res);
+//	mav.setViewName("index"); //setViewName 없이 return만 하게되면 템플릿을 찾지 못하고 오류 발생.
+//	return mav;
+//	}	
 }
 
 

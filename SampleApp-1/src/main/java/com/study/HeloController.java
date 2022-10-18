@@ -12,41 +12,57 @@ import org.springframework.web.servlet.ModelAndView; //import ModelandView heade
 @Controller
 public class HeloController {
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	//221018 Redirect
+	@RequestMapping("/")
 	public ModelAndView index(ModelAndView mav) {
 		mav.setViewName("index");
-		mav.addObject("msg", "폼을 전송해주세요.");
 		return mav;
+	}
+	@RequestMapping("/other") //redirect to other page
+	public String other() {
+		return "redirect:/";
+	}
+	@RequestMapping("/home")
+	public String home() {
+		return "forward:/";
 	}
 	
-	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView send( //폼이 전송한 값은 send method로 받는다
-			@RequestParam(value="check1", required=false)boolean check1, //value는 선택값, required는 필수여부. 필수일경우 매개변수는 반드시 인수로 전달
-			@RequestParam(value="radio1", required=false)String radio1,
-			@RequestParam(value="select1", required=false)String select1,
-			@RequestParam(value="select2", required=false)String[] select2,
-			ModelAndView mav) {
-		
-		String res=""; //결과
-		try {
-			res = "check:" + check1 +
-				"radio:" + radio1 +
-				"select:" + select1 +
-				"\nselect2:";
-		} catch (NullPointerException e) {}
-		try {
-			res +=  select2[0];
-			for(int i = 1; i < select2.length; i++) {
-				res += ", " + select2[i];
-			}
-		} catch (NullPointerException e) {
-			res += "null";
-		}
-		
-		mav.addObject("msg", res);
-		mav.setViewName("index");
-		return mav;
-	}
+	//221017
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView mav) {
+//		mav.setViewName("index");
+//		mav.addObject("msg", "폼을 전송해주세요.");
+//		return mav;
+//	}
+//	
+//	@RequestMapping(value="/", method=RequestMethod.POST)
+//	public ModelAndView send( //폼이 전송한 값은 send method로 받는다
+//			@RequestParam(value="check1", required=false)boolean check1, //value는 선택값, required는 필수여부. 필수일경우 매개변수는 반드시 인수로 전달
+//			@RequestParam(value="radio1", required=false)String radio1,
+//			@RequestParam(value="select1", required=false)String select1,
+//			@RequestParam(value="select2", required=false)String[] select2,
+//			ModelAndView mav) {
+//		
+//		String res=""; //결과
+//		try {
+//			res = "check:" + check1 +
+//				"radio:" + radio1 +
+//				"select:" + select1 +
+//				"\nselect2:";
+//		} catch (NullPointerException e) {}
+//		try {
+//			res +=  select2[0];
+//			for(int i = 1; i < select2.length; i++) {
+//				res += ", " + select2[i];
+//			}
+//		} catch (NullPointerException e) {
+//			res += "null";
+//		}
+//		
+//		mav.addObject("msg", res);
+//		mav.setViewName("index");
+//		return mav;
+//	}
 	
 	
 //	@RequestMapping("/{num}") //annotation with variables to create paths

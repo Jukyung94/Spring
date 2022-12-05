@@ -10,3 +10,4 @@
 <artifactId>spring-boot-starter-thymeleaf</artifactId> 
 Group과 Artifact Id만 넣어준다.
 - [x]  221017 - 기타 폼 컨트롤러 처리방법 공부(checkbox, radio button, select list)
+- [x]  221205 - Utility Object 공부

@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin@211.152.142.171:1521
+    username: com4in
+    password: com4in201!!
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

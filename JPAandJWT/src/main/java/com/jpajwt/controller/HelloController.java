@@ -12,5 +12,15 @@ public class HelloController {
 	public String hello() {
 		return "hello from spring";
 	}
+	
+	@GetMapping("/api/user")
+	public String userPage() {
+		return "user page";
+	}
+	
+	@GetMapping("/api/admin")
+	public String adminPage() {
+		return "admin page";
+	}
 
 }

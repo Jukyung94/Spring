@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	
+	private final JwtService jwtService = new JwtService();
 
 	@Override
 	protected void doFilterInternal(
@@ -27,11 +29,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 		final String authHeader = request.getHeader("Authorization"); //토큰을 담을 header
 		final String jwt; //jwt를 담을 변수
+		final String userEmail; //유저 이메일을 담을 변수
 		if(authHeader == null || !authHeader.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response); //header가 비어있거나 Bearer로 시작하지 않으면 차단
 			return;
 		}
 		jwt = authHeader.substring(7); //header가 Bearer로 시작하기 때문에 "Bearer "를 제외한 값을 받아야 한다. 따라서 8번째 글자부터 받는다.
+		userEmail = jwtService.extractUsername(jwt); //extract username from jwtService
 		
 	}
 

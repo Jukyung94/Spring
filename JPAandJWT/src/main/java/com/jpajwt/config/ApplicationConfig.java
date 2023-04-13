@@ -5,6 +5,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.jpajwt.repository.UserRepository;
 
@@ -33,7 +35,14 @@ public class ApplicationConfig {
 		//data access object responsible to fetch userdetail and encode password
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());
-		
+		authProvider.setPasswordEncoder(passwordEncoder());
+		return authProvider;
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		//encoding password
+		return new BCryptPasswordEncoder();
 	}
 
 }

@@ -18,11 +18,12 @@ public class SecurityConfig {
 	
 	private final JwtAuthenticationFilter jwtAuthFilter;
 	private final AuthenticationProvider authenticationProvider;
-	
+
 	public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
 		this.jwtAuthFilter = jwtAuthFilter;
 		this.authenticationProvider = authenticationProvider;
 	}
+
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,7 +31,11 @@ public class SecurityConfig {
 			.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("") //일치하는 주소는 모두 허용
+			.antMatchers("/api/vi/auth/authenticate") //일치하는 주소는 모두 허용
+			.permitAll()
+			.antMatchers("/api/vi/auth/register") //일치하는 주소는 모두 허용
+			.permitAll()
+			.antMatchers("/api/hello")
 			.permitAll()
 			.anyRequest()
 			.authenticated() //나머지는 인증 필요

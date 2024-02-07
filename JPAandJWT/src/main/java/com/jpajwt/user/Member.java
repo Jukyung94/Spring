@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @Entity
 @Table(name="member")
-public class User implements UserDetails{
+public class Member implements UserDetails{
 	
 	@Id
 	@Column(name="name")

@@ -4,15 +4,15 @@ spring:
       mode: never
       
   datasource:
-    url: jdbc:oracle:thin:@211.171.152.242:1521
-    driver-class-name: oracle.jdbc.OracleDriver
-    username: com4in
-    password: com4in201!!
+    url: jdbc:mysql://localhost:3306
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: tjdwnrud1@
     
     
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         formatsql: true

@@ -18,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 	
 	private final AuthenticationService service;
-	
+
 	public AuthController(AuthenticationService service) {
 		this.service = service;
 	}
-	
+
 	@PostMapping("/register")
 	public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
 		//

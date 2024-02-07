@@ -11,6 +11,7 @@ import com.jpajwt.controller.AuthenticationResponse;
 import com.jpajwt.dto.AuthenticationRequest;
 import com.jpajwt.dto.RegisterRequest;
 import com.jpajwt.repository.UserRepository;
+import com.jpajwt.user.Member;
 import com.jpajwt.user.Role;
 
 import lombok.RequiredArgsConstructor;
@@ -19,29 +20,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 	
-	private final UserRepository repository;
+	private UserRepository repository;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtService jwtService;
-	private final AuthenticationManager authenticationManager; 
-	
-	
-	public AuthenticationService(UserRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
-		this.repository = repository;
-		this.passwordEncoder = passwordEncoder;
-		this.jwtService = jwtService;
-		this.authenticationManager = authenticationManager;
+	private final AuthenticationManager authenticationManager;
+
+	public AuthenticationService() {
 	}
+
 
 	public AuthenticationResponse register(RegisterRequest request) {
 		// create user data and save in Database
-		var user = User.builder()
-				.username(request.getFirstname())
+		var user = Member.builder()
+				.name(request.getFirstname())
+				.email(request.getEmail())
 				.password(passwordEncoder.encode(request.getPassword()))
-				.roles(Role.USER.toString())
 				.build();
-		repository.save(user);
+//		repository.save(user);
 		var jwtToken = jwtService.generateToken(user);
-		return AuthenticationResponse.builder().token.build();
+		return AuthenticationResponse.builder().token(jwtToken).build();
 	}
 
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -55,6 +52,6 @@ public class AuthenticationService {
 		var user = repository.findByEmail(request.getEmail())
 				.orElseThrow();
 		var jwtToken = jwtService.generateToken(user);
-		return AuthenticationResponse.builder().token.build();
+		return AuthenticationResponse.builder().token(jwtToken).build();
 	}
 }
